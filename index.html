@@ -3,28 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grades Portal</title>
+    <title>Excel Search</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
-    <h1>Search Student Grades</h1>
+    <div class="container">
+        <h2>Search for Student Grades</h2>
+        
+        <!-- Dropdown for selecting the year -->
+        <select id="yearSelect">
+            <option value="MFM 44">MFM 44</option>
+            <option value="MFM 43">MFM 43</option>
+            <option value="MFM 42">MFM 42</option>
+            <option value="MFM 41">MFM 41</option>
+            <option value="MFM 40">MFM 40</option>
+            <option value="MFM 39">MFM 39</option>
+            <option value="MFM 38">MFM 38</option>
+            <option value="MFM 37">MFM 37</option>
+        </select>
 
-    <!-- Dropdown for selecting year -->
-    <select id="yearDropdown">
-        <option value="MFM 44">MFM 44</option>
-        <option value="MFM 43">MFM 43</option>
-        <option value="MFM 42">MFM 42</option>
-        <option value="MFM 41">MFM 41</option>
+        <input type="text" id="searchInput" placeholder="Enter Name or Seat Number" />
+        <button onclick="searchStudent()">Search</button>
+    </div>
 
-        <!-- Add more years here -->
-    </select>
-
-    <input type="text" id="searchInput" placeholder="Enter student name or seat number">
-    <button onclick="searchStudent()">Search</button>
-
-    <div id="result"></div>
-
-    <script src="script.js"></script>
+    <script>
+        function searchStudent() {
+            const query = document.getElementById("searchInput").value.trim();
+            const year = document.getElementById("yearSelect").value;  
+            alert(query);
+            alert(year);
+            if (query) {
+                window.location.href = `test.html?query=${encodeURIComponent(query)}&year=${encodeURIComponent(year)}`;
+            } else {
+                alert("Please enter a name or seat number.");
+            }
+        }
+    </script>
 </body>
 </html>

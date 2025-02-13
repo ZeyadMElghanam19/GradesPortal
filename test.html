@@ -7,10 +7,28 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Student Grades</h1>
+    <div class="container">
+      
+<div class="container">
 
-    <div id="studentDetails"></div>
+        <h2>Student Grades</h2>
+        <div id="result"></div>
+        <button onclick="goBack()">Back</button>
+    </div>
 
     <script src="script.js"></script>
+    <script>
+        function goBack() {
+            window.location.href = "index.html";
+        }
+
+        // Extract query from URL
+        const params = new URLSearchParams(window.location.search);
+        const query = params.get("query");
+
+        if (query) {
+            searchStudent(query);
+        }
+    </script>
 </body>
 </html>
