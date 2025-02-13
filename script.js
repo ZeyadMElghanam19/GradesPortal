@@ -131,6 +131,7 @@ function showStudentDetails(studentData) {
     const modules = [
         {
             title: "Foundation 1 Grades",
+            subtitle: "1st Year",
             subjects: [
                 "Practical Anatomy", "Practical Data Show", "Total Practical",
                 "Bio Activity", "Anatomy Activity", "Physio Activity", "Histo Activity",
@@ -142,6 +143,7 @@ function showStudentDetails(studentData) {
         },
         {
             title: "Foundation 2 Grades",
+            subtitle: "1st Year",
             subjects: [
                 "Spot Patho", "Practical Data Show", "Total Practical",
                 "Para Activity", "Micro Activity", "Pharma Activity",
@@ -151,7 +153,34 @@ function showStudentDetails(studentData) {
             maxScores: [2, 45.25, 47.25, 3.6, 5.1, 3.9, 3.15, 15.75, 31.5, 47.25, 94.5],  
             minScores: [1, 22.625, 23.625, 1.8, 2.55, 1.95, 1.575, 7.875, 15.75, 23.625, 47.25],
             startIndex: 15
+        },
+        {
+            title: "MSK Grades",
+            subtitle: "1st Year",
+            subjects: [
+                "Prac", "Practical Data Show", "Total Practical",
+                "Anatomy Activity", "Biochemistry Activity", "Histo Activity",
+                "Physio Activity", "Patho Activity", "Activities", "End", "End + Activities",
+                "MSK"
+            ],
+            maxScores: [2, 45.25, 47.25, 3.6, 5.1, 3.9, 3.15, 15.75, 31.5, 47.25, 20, 94.5],  
+            minScores: [1, 22.625, 23.625, 1.8, 2.55, 1.95, 1.575, 7.875, 15.75, 23.625, 10, 47.25],
+            startIndex: 29
+        },
+        {
+            title: "CVS Grades",
+            subtitle: "1st Year",
+            subjects: [
+                "Prac", "Practical Data Show", "Total Practical",
+                "Anatomy Activity", "Biochemistry Activity", "Histo Activity",
+                "Physio Activity", "Patho Activity", "Activities", "End", "End + Activities",
+                "CVS"
+            ],
+            maxScores: [2, 45.25, 47.25, 3.6, 5.1, 3.9, 3.15, 15.75, 31.5, 47.25, 20, 94.5],  
+            minScores: [1, 22.625, 23.625, 1.8, 2.55, 1.95, 1.575, 7.875, 15.75, 23.625, 10, 47.25],
+            startIndex: 39
         }
+        
     ];
 
     let currentModuleIndex = 0;
