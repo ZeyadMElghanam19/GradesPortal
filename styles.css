@@ -23,9 +23,12 @@ input {
 }
 
 input, button {
-    padding: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
     font-size: 16px;
     border-radius: 4px;
+    height: 7vh;
+
 }
 
 button {
