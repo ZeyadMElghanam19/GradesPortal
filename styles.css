@@ -48,8 +48,8 @@ select {
     border-radius: 4px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    width: 17vh; /* Adjust as needed */
-    height: 8.3vh; /* Matches the button and input */
+    width: 85px; /* Adjust as needed */
+    height: 43px; /* Matches the button and input */
     text-align: center;
 }
 
