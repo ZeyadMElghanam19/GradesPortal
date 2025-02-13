@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel Search</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  
+<div class="container">
+        <h2>Welcome to the Student Grades Portal</h2>
+        <p>Here, you can search for a student’s academic performance by entering their name or seat number.</p>
+        <hr>
+        
+        <h2>Search for Student Grades</h2>
+        <input type="text" id="searchInput" placeholder="Enter Name or Seat Number" />
+        <button onclick="searchStudent()">Search</button>
+    </div>
+
+    <script>
+        function searchStudent() {
+            const query = document.getElementById("searchInput").value.trim();
+            if (query) {
+                window.location.href = `test.html?query=${encodeURIComponent(query)}`;
+            } else {
+                alert("Please enter a name or seat number.");
+            }
+        }
+    </script>
+</body>
+</html>
