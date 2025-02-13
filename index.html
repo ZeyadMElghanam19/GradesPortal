@@ -3,30 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Excel Search</title>
+    <title>Grades Portal</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
-  
-<div class="container">
-        <h2>Welcome to the Student Grades Portal</h2>
-        <p>Here, you can search for a student’s academic performance by entering their name or seat number.</p>
-        <hr>
-        
-        <h2>Search for Student Grades</h2>
-        <input type="text" id="searchInput" placeholder="Enter Name or Seat Number" />
-        <button onclick="searchStudent()">Search</button>
-    </div>
+    <h1>Search Student Grades</h1>
 
-    <script>
-        function searchStudent() {
-            const query = document.getElementById("searchInput").value.trim();
-            if (query) {
-                window.location.href = `test.html?query=${encodeURIComponent(query)}`;
-            } else {
-                alert("Please enter a name or seat number.");
-            }
-        }
-    </script>
+    <!-- Dropdown for selecting year -->
+    <select id="yearDropdown">
+        <option value="MFM 44">MFM 44</option>
+        <option value="MFM 43">MFM 43</option>
+        <option value="MFM 42">MFM 42</option>
+        <option value="MFM 41">MFM 41</option>
+
+        <!-- Add more years here -->
+    </select>
+
+    <input type="text" id="searchInput" placeholder="Enter student name or seat number">
+    <button onclick="searchStudent()">Search</button>
+
+    <div id="result"></div>
+
+    <script src="script.js"></script>
 </body>
 </html>
