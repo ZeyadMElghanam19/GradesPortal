@@ -12,6 +12,7 @@
         
         <!-- Dropdown for selecting the year -->
         <select id="yearSelect">
+            <option value="">Your Year</option>
             <option value="MFM 44">MFM 44</option>
             <option value="MFM 43">MFM 43</option>
             <option value="MFM 42">MFM 42</option>
@@ -30,10 +31,13 @@
         function searchStudent() {
             const query = document.getElementById("searchInput").value.trim();
             const year = document.getElementById("yearSelect").value;  
-            alert(query);
-            alert(year);
             if (query) {
-                window.location.href = `test.html?query=${encodeURIComponent(query)}&year=${encodeURIComponent(year)}`;
+              if (year) {
+                  window.location.href = `test.html?query=${encodeURIComponent(query)}&year=${encodeURIComponent(year)}`;
+              } else {
+                alert("Please choose your academic year.");
+              }
+             
             } else {
                 alert("Please enter a name or seat number.");
             }
