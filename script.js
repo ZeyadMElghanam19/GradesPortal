@@ -1,109 +1,79 @@
-// Load config.json and process the selected year and student
-async function loadConfigAndFetchStudentData() {
-    try {
-        const response = await fetch('config.json');
-        const config = await response.json();
-        alert("Config loaded successfully");
+// Load config.json and process student data
+document.addEventListener("DOMContentLoaded", function () {
+    alert("Script loaded successfully");
 
-        // Retrieve stored query (student name) and year
-        let studentName = localStorage.getItem("query");
-        let selectedYear = localStorage.getItem("year");
+    // Fetch config.json
+    fetch("config.json")
+        .then(response => {
+            if (!response.ok) throw new Error("Failed to load config.json");
+            return response.json();
+        })
+        .then(config => {
+            alert("Config loaded successfully");
 
-        if (!studentName || !selectedYear) {
-            alert("Student name or year not found in localStorage");
-            return;
-        }
+            // Get stored student name and year from the HTML (or session storage if used)
+            let query = document.getElementById("studentName").value || "";
+            let year = document.getElementById("selectedYear").value || "";
 
-        alert(`Selected Student: ${studentName}\nSelected Year: ${selectedYear}`);
+            alert("Query: " + query);
+            alert("Year: " + year);
 
-        if (!config[selectedYear]) {
-            alert("Year not found in config.json");
-            return;
-        }
+            if (!config[year]) {
+                alert("Error: Selected year not found in config.json");
+                return;
+            }
 
-        let { sheetID, sheetName, modules } = config[selectedYear];
-        alert(`Sheet ID: ${sheetID}\nSheet Name: ${sheetName}`);
+            let sheetID = config[year].sheetID;
+            let sheetName = config[year].sheetName;
+            let modules = config[year].modules;
 
-        fetchStudentData(sheetID, sheetName, studentName, modules);
-    } catch (error) {
-        alert("Error loading config.json: " + error);
-    }
-}
+            alert("Sheet ID: " + sheetID);
+            alert("Sheet Name: " + sheetName);
 
-// Fetch student data from Google Sheets API
-async function fetchStudentData(sheetID, sheetName, studentName, modules) {
-    try {
-        let url = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
-        const response = await fetch(url);
-        const text = await response.text();
-        const jsonData = JSON.parse(text.substring(47, text.length - 2));
-        
-        let studentRow = jsonData.table.rows.find(row => row.c[0]?.v === studentName);
-        
-        if (!studentRow) {
-            alert("Student not found in the sheet");
-            return;
-        }
+            // Fetch student data from Google Sheets API
+            let apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/${sheetID}/values/${sheetName}?key=YOUR_API_KEY`;
+            alert("Fetching data from: " + apiUrl);
 
-        alert("Student data found, preparing to display");
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) throw new Error("Failed to fetch sheet data");
+                    return response.json();
+                })
+                .then(sheetData => {
+                    alert("Sheet data fetched successfully");
+                    processStudentData(sheetData, query, modules);
+                })
+                .catch(error => alert("Error fetching sheet: " + error.message));
+        })
+        .catch(error => alert("Error loading config: " + error.message));
+});
 
-        displayStudentData(studentRow, modules);
-    } catch (error) {
-        alert("Error fetching student data: " + error);
-    }
-}
-
-let currentModuleIndex = 0;
-let currentModules = [];
-
-// Display student data module-wise
-function displayStudentData(studentRow, modules) {
-    currentModules = modules;
-    currentModuleIndex = 0;
-    showModuleData(studentRow);
-}
-
-// Show data for the current module
-function showModuleData(studentRow) {
-    if (currentModuleIndex < 0 || currentModuleIndex >= currentModules.length) {
-        alert("Invalid module index");
+// Process student data and display it functionally
+function processStudentData(sheetData, query, modules) {
+    let rows = sheetData.values;
+    if (!rows || rows.length === 0) {
+        alert("No data found in sheet");
         return;
     }
 
-    let module = currentModules[currentModuleIndex];
-    let message = `Module: ${module.title}\n`;
+    alert("Total rows in sheet: " + rows.length);
 
-    module.subjects.forEach((subject, i) => {
-        let index = module.indexes[Object.keys(module.indexes)[i]];
-        let score = studentRow.c[index]?.v || "N/A";
-        message += `${subject}: ${score}\n`;
+    let studentRow = rows.find(row => row[0] && row[0].trim() === query.trim());
+    if (!studentRow) {
+        alert("Student not found");
+        return;
+    }
+
+    alert("Student data found");
+
+    // Display student data for each module
+    modules.forEach(module => {
+        let moduleData = "Module: " + module.title + "\n";
+        module.subjects.forEach((subject, index) => {
+            let colIndex = module.indexes[subject];
+            let score = studentRow[colIndex] || "N/A";
+            moduleData += subject + ": " + score + "\n";
+        });
+        alert(moduleData);
     });
-
-    alert(message);
 }
-
-// Navigation functions
-function nextModule() {
-    if (currentModuleIndex < currentModules.length - 1) {
-        currentModuleIndex++;
-        showModuleData();
-    } else {
-        alert("No more modules available");
-    }
-}
-
-function prevModule() {
-    if (currentModuleIndex > 0) {
-        currentModuleIndex--;
-        showModuleData();
-    } else {
-        alert("This is the first module");
-    }
-}
-
-// Attach navigation functions to buttons
-document.getElementById("nextBtn").addEventListener("click", nextModule);
-document.getElementById("prevBtn").addEventListener("click", prevModule);
-
-// Load data on page load
-window.onload = loadConfigAndFetchStudentData;
