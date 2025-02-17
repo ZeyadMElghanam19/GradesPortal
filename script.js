@@ -102,9 +102,7 @@ let currentModuleIndex = 0;
     
 async function fetchExcelData(year) {
         Object.freeze(config);
-        alert(Object.keys(config));
         year = year.trim();
-        alert(config[year]);
         
 
     try {
@@ -118,9 +116,7 @@ async function fetchExcelData(year) {
         const sheetName = config[year].sheetName;
         currentModules = config[year].modules;
         currentModuleIndex = 0; // Reset module index when changing year
-        alert(`Fetching data for: ${year}`);
         const url = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetName)}`;
-        alert(url);
         const response = await fetch(url);
         if (!response.ok) throw new Error("Failed to fetch data");
 
@@ -146,7 +142,6 @@ function normalizeArabic(text) {
 async function searchStudent(query, year) {
     const resultElement = document.getElementById("result");
     query = query.trim().toLowerCase();
-    alert(query);
     
     if (!query) {
         resultElement.innerHTML = "<p>Please enter a name or seat number.</p>";
@@ -154,7 +149,6 @@ async function searchStudent(query, year) {
     }
 
     const data = await fetchExcelData(year);
-    alert(data);
     if (data.length === 0) {
         resultElement.innerHTML = "<p>Error fetching data.</p>";
         return;
