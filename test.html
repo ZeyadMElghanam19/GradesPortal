@@ -26,16 +26,14 @@
         const params = new URLSearchParams(window.location.search);
         const query = params.get("query");
         const year = params.get("year");
-        
-        alert(query);
-        alert(year);
+
         if (year) {
             fetchExcelData(year);       
           
         }
         
         if (query) {
-            searchStudent(query);
+            searchStudent(query, year);
         }
     </script>
 </body>
