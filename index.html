@@ -14,7 +14,6 @@
     
         <!-- Dropdown for selecting the year -->
         <select id="yearSelect">
-         <option value="MFM 44">MFM 44</option> 
         </select>
 
         <input type="text" id="searchInput" placeholder="Enter Name or Seat Number" />
@@ -22,7 +21,7 @@
         </section> 
         
         <section class="Search&Admin">
-        <button onclick="searchStudent()">Search</button>
+        <button onclick="startSearch()">Search</button>
         <a id="adminBtn" href='admin.html'>Admin?</a>
         </section>
         
@@ -31,7 +30,7 @@
     <script src="script.js"></script>
     <script>
 
-        function searchStudent() {
+        function startSearch() {
             const query = document.getElementById("searchInput").value.trim();
             const year = document.getElementById("yearSelect").value;  
             if (query) {

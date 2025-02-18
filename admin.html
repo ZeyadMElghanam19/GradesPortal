@@ -13,55 +13,75 @@
         
         <label for="adminyearSelect">Select Year:</label>
         <select id="adminyearSelect"></select>
-        
+      
+        <hr>     
+     
         <label for="adminmoduleSelect">Select Module:</label>
         <select id="adminmoduleSelect"></select>
-
+        
+        <hr>
+        
         <button id="addYearBtn">Add Year</button>
+        <button id="deleteYearBtn">Delete Year</button>
+        <button id="ModifyYearBtn">Modify Year</button>
+        <!-- Modify Year Popup -->
+        <div id="modifyYearPopup" class="popup-container">
+            <div class="popup-content">
+                <h2>Modify Year</h2>
+                <label>Year Title:</label>
+                <input type="text" id="modifyYearTitle" />
         
+                <label>Sheet ID:</label>
+                <input type="text" id="modifySheetID" />
         
-<button id="modifyModuleBtn">Modify Module</button>
-
-<!-- Modify Module Popup -->
-<div id="modifyModulePopup" class="popup-container">
-    <div class="popup-content">
-        <h2>Modify Module</h2>
-        <label>Module Title:</label>
-        <input type="text" id="modifyModuleTitle" />
-
-        <label>Subjects (comma-separated):</label>
-        <input type="text" id="modifyModuleSubjects" />
-
-        <label>Max Scores (comma-separated):</label>
-        <input type="text" id="modifyMaxScores" />
-
-        <label>Min Scores (comma-separated):</label>
-        <input type="text" id="modifyMinScores" />
-
-        <label>Indexes (comma-separated):</label>
-        <input type="text" id="modifyIndexes" />
-
-        <div class="popup-buttons">
-            <button id="saveModifyModule">Save</button>
-            <button id="cancelModifyModule">Cancel</button>
+                <label>Sheet Name:</label>
+                <input type="text" id="modifySheetName" />
+        
+                <div class="popup-buttons">
+                    <button id="saveModifyYear">Save</button>
+                    <button id="cancelModifyYear">Cancel</button>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
+        <hr>
         
-        
-        <button id="editModuleBtn">Edit Module</button>
+        <button id="addModuleBtn">Add Module</button>
         <button id="deleteModuleBtn">Delete Module</button>
+        <button id="modifyModuleBtn">Modify Module</button>
+        <!-- Modify Module Popup -->
+        <div id="modifyModulePopup" class="popup-container">
+            <div class="popup-content">
+                <h2>Modify Module</h2>
+                <label>Module Title:</label>
+                <input type="text" id="modifyModuleTitle" />
+
+                <label>Subjects (comma-separated):</label>
+                <input type="text" id="modifyModuleSubjects" />
+
+                <label>Max Scores (comma-separated):</label>
+                <input type="text" id="modifyMaxScores" />
+
+                <label>Min Scores (comma-separated):</label>
+                <input type="text" id="modifyMinScores" />
+
+                <label>Indexes (comma-separated):</label>
+                <input type="text" id="modifyIndexes" />
+
+                <div class="popup-buttons">
+                    <button id="saveModifyModule">Save</button>
+                    <button id="cancelModifyModule">Cancel</button>
+                </div>
+            </div>
+        </div>
         
         <hr>
 
         <button id="sendEmailsBtn">Send Emails to Students</button>
-
         <button id="backBtn" onclick="window.location.href='index.html'">Back to Main</button>
     </div>
 
-    <script src="script.js"></script>
     <script src="admin.js"></script>
-
+    
 </body>
 </html>

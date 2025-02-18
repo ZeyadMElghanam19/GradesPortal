@@ -8,33 +8,44 @@
 </head>
 <body>
     <div class="container">
-      
-<div class="container">
-
         <h2>Student Grades</h2>
         <div id="result"></div>
         <button onclick="goBack()">Back</button>
     </div>
 
-    <script src="script.js"></script>
-    <script>
-        function goBack() {
+    <script src="script.js"></script> <!-- Make sure this is included! -->
+
+<script>
+    function goBack() {
             window.location.href = "index.html";
         }
 
-        // Extract query from URL
-        const params = new URLSearchParams(window.location.search);
-        const query = params.get("query");
-        const year = params.get("year");
+    async function loadConfigFromLocalStorage() {
+        const configData = localStorage.getItem("config");
+        if (configData) {
+            config = JSON.parse(configData);
+            // console.log("Config loaded from localStorage:", config);
 
-        if (year) {
-            fetchExcelData(year);       
-          
+            const params = new URLSearchParams(window.location.search);
+            const query = params.get("query");
+            const year = params.get("year");
+
+            if (year) {
+                await fetchExcelData(year); // Now fetch the data after config is loaded
+            }
+
+            if (query) {
+                searchStudent(query, year);
+            }
+
+        } else {
+            alert("Config not found. Please reload the page.");
         }
-        
-        if (query) {
-            searchStudent(query, year);
-        }
-    </script>
+    }
+
+    // Load config data and then proceed with the logic
+    window.onload = loadConfigFromLocalStorage;
+</script>
+
 </body>
 </html>
