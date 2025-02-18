@@ -9,25 +9,28 @@
 <body>
     <div class="container">
         <h2>Search for Student Grades</h2>
-        
+
+       <section>
+    
         <!-- Dropdown for selecting the year -->
         <select id="yearSelect">
-            <option value="">Your Year</option>
-            <option value="MFM 44">MFM 44</option>
-            <option value="MFM 43">MFM 43</option>
-            <option value="MFM 42">MFM 42</option>
-            <option value="MFM 41">MFM 41</option>
-            <option value="MFM 40">MFM 40</option>
-            <option value="MFM 39">MFM 39</option>
-            <option value="MFM 38">MFM 38</option>
-            <option value="MFM 37">MFM 37</option>
+         <option value="MFM 44">MFM 44</option> 
         </select>
 
         <input type="text" id="searchInput" placeholder="Enter Name or Seat Number" />
+     
+        </section> 
+        
+        <section class="Search&Admin">
         <button onclick="searchStudent()">Search</button>
+        <a id="adminBtn" href='admin.html'>Admin?</a>
+        </section>
+        
     </div>
-
+    
+    <script src="script.js"></script>
     <script>
+
         function searchStudent() {
             const query = document.getElementById("searchInput").value.trim();
             const year = document.getElementById("yearSelect").value;  

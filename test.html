@@ -25,15 +25,15 @@
         // Extract query from URL
         const params = new URLSearchParams(window.location.search);
         const query = params.get("query");
-        const year = params.get("year");
+        const selectedYear = params.get("year");
+                  alert(selectedYear);
+            alert(query);
 
-        if (year) {
-            fetchExcelData(year);       
-          
-        }
+            fetchExcelData(selectedYear);       
+      
         
         if (query) {
-            searchStudent(query, year);
+            searchStudent(query, selectedYear);
         }
     </script>
 </body>
