@@ -4,6 +4,25 @@
     "sheetName": "NEWYEARID",
     "modules": [
       {
+        "title": "NEWMOD2",
+        "subjects": [
+          "Subject1",
+          "Subject2"
+        ],
+        "maxScores": [
+          100,
+          100
+        ],
+        "minScores": [
+          50,
+          50
+        ],
+        "indexes": [
+          1,
+          2
+        ]
+      },
+      {
         "title": "NEW MODULE",
         "subjects": [
           "Subject1",
