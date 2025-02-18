@@ -1,137 +1,35 @@
+let config; // Ensure `config` is defined at the top of the script
 
-window.config = {
-    "MFM 44": {
-        "sheetID": "1eCfEVLAQ4k01jJZ-FUhpiHa9dVjMGMBSfO4XyayMALU",
-        "sheetName": "MFM 44",
-        "modules": [
-            {
-                "title": "Foundation 1 Grades",
-                "subjects": [
-                    "Practical Anatomy", "Practical Data Show", "Total Practical",
-                    "Bio Activity", "Anatomy Activity", "Physio Activity", "Histo Activity",
-                    "Activities", "End", "End + Activities", "Foundation 1"
-                ],
-                "maxScores": [18, 36, 54, 6, 6, 3, 3, 18, 36, 54, 108],
-                "minScores": [9, 18, 27, 3, 3, 1.5, 1.5, 9, 18, 27, 54],
-                "indexes": [
-                    4,  // Practical Anatomy
-                    5,  // Practical Data Show
-                    6,  // Total Practical
-                    7,  // Bio Activity
-                    8,  // Anatomy Activity
-                    9,  // Physio Activity
-                    10, // Histo Activity
-                    12, // Activities
-                    11, // End
-                    13, // End + Activities
-                    14  // Foundation 1
-                ]
-            },
-            {
-                "title": "Foundation 2 Grades",
-                "subjects": [
-                    "Spot Patho", "Practical Data Show", "Total Practical",
-                    "Para Activity", "Micro Activity", "Pharma Activity",
-                    "Patho Activity", "Activities", "End", "End + Activities",
-                    "Foundation 2"
-                ],
-                "maxScores": [2, 45.25, 47.25, 3.6, 5.1, 3.9, 3.15, 15.75, 31.5, 47.25, 94.5],
-                "minScores": [1, 22.625, 23.625, 1.8, 2.55, 1.95, 1.575, 7.875, 15.75, 23.625, 47.25],
-                "indexes": [
-                    16, // Spot Patho
-                    17, // Practical Data Show 2
-                    18, // Total Practical 2
-                    20, // Para Activity
-                    21, // Micro Activity
-                    22, // Pharma Activity
-                    23, // Patho Activity
-                    24, // Activities 2
-                    19, // End 2
-                    25, // End + Activities 2
-                    26  // Foundation 2
-                ]
-            },
-            {
-                "title": "MSK Grades",
-                "subjects": ["Prac", "Practical Data Show", "Total Practical"],
-                "maxScores": [2, 45.25, 47.25],
-                "minScores": [1, 22.625, 23.625],
-                "indexes": [
-                    32, // Prac
-                    30, // Practical Data Show
-                    31  // Total Practical
-                ]
-            },
-            {
-                "title": "CVS Grades",
-                "subjects": ["Spot Neuro", "Practical Data Show", "Total Practical"],
-                "maxScores": [3, 40, 43],
-                "minScores": [1.5, 20, 21.5],
-                "indexes": [
-                    42, // Spot Neuro
-                    43, // Practical Data Show
-                    44  // Total Practical
-                ]
-            }
-        ]
-    },
-    
-    "MFM 43": {
-        "sheetID": "1eCfEVLAQ4k01jJZ-FUhpiHa9dVjMGMBSfO4XyayMALU",
-        "sheetName": "MFM 44",
-        "modules": [
-            {
-                "title": "Neuro Grades",
-                "subjects": ["Spot Neuro", "Practical Data Show", "Total Practical"],
-                "maxScores": [3, 40, 43],
-                "minScores": [1.5, 20, 21.5],
-                "indexes": [
-                    42, // Spot Neuro
-                    43, // Practical Data Show
-                    44  // Total Practical
-                ]
-            }
-        ]
-    },
-    
-    "MFM 42": {
-        "sheetID": "1eCfEVLAQ4k01jJZ-FUhpiHa9dVjMGMBSfO4XyayMALU",
-        "sheetName": "MFM 42",
-        "modules": [
-            {
-                "title": "Neuro Grades",
-                "subjects": ["Spot Neuro", "Practical Data Show", "Total Practical"],
-                "maxScores": [3, 40, 43],
-                "minScores": [1.5, 20, 21.5],
-                "indexes": [
-                    42, // Spot Neuro
-                    43, // Practical Data Show
-                    44  // Total Practical
-                ]
-            },
-            {
-                "title": "IDK TBH Grades",
-                "subjects": ["Spot Neuro", "Practical Data Show", "Total Practical"],
-                "maxScores": [3, 40, 43],
-                "minScores": [1.5, 20, 21.5],
-                "indexes": [
-                    42, // Spot Neuro
-                    43, // Practical Data Show
-                    44  // Total Practical
-                ]
-            }
-        ]    }    
-};
+async function loadConfig() {
+    try {
+        const response = await fetch("https://raw.githubusercontent.com/ZeyadMElghanam19/GradesPortal/main/config.json");
+        if (!response.ok) throw new Error("Failed to fetch config");
+        config = await response.json();
+        console.log("Config loaded:", config);
+
+        // Store config in localStorage
+        localStorage.setItem("config", JSON.stringify(config));
+
+        populateYearDropdown();
+    } catch (error) {
+        console.error("Error loading config:", error);
+        //alert("Error loading config: " + error.message);
+    }
+}
+
+
+// Load the config when the script starts
+loadConfig();
 
 function populateYearDropdown() {
-    const yearSelect = document.getElementById("yearSelect");
-
     if (!yearSelect) {
         console.error("yearSelect dropdown not found in the document.");
+        // alert("yearSelect dropdown not found in the document.");
         return;
     }
 
-    console.log("Config Object:", window.config); // Debugging line
+    // console.log("Config Object:", config); // Debugging line
+    // alert("Config Object: " + JSON.stringify(config)); // Debugging line
 
     yearSelect.innerHTML = ""; // Clear existing options
 
@@ -144,8 +42,11 @@ function populateYearDropdown() {
     yearSelect.appendChild(defaultOption);
 
     // Populate dropdown with years from config
-    Object.keys(window.config).forEach(year => {
-        console.log(`Adding year: ${year}`); // Debugging line
+    Object.keys(config).forEach(year => {
+        
+        // console.log(`Adding year: ${year}`); // Debugging line
+        // alert(`Adding year: ${year}`); // Debugging line
+        
         const option = document.createElement("option");
         option.value = year;
         option.textContent = year;
@@ -153,44 +54,51 @@ function populateYearDropdown() {
     });
 }
 
-// Call the function after the config is defined
-populateYearDropdown();
-
-    // Add more years and modules as needed
+// Add more years and modules as needed
 let currentModules = [];
 let currentModuleIndex = 0;
-    
-async function fetchExcelData(year) {
-        Object.freeze(config);
-        year = year.trim();
-        
 
+async function fetchExcelData(year) {
     try {
+        // alert("Fetching data for year: " + year);
+        // console.log("Fetching data for year:", year);
+
         if (!config[year]) {
-            alert("Invalid year selected.");
+           // alert("Invalid year selected.");
+            console.error("Invalid year selected.");
             return [];
         }
-     
 
         const sheetID = config[year].sheetID;
         const sheetName = config[year].sheetName;
         currentModules = config[year].modules;
         currentModuleIndex = 0; // Reset module index when changing year
         const url = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetName)}`;
+        
+        // alert("Fetching URL: " + url); // Debugging line
+        
+        console.log("Fetching URL:", url);
         const response = await fetch(url);
         if (!response.ok) throw new Error("Failed to fetch data");
-
         const text = await response.text();
         const json = JSON.parse(text.substring(47, text.length - 2));
 
+        // console.log("Fetched data:", json);
+        // alert("Fetched data: " + JSON.stringify(json)); // Debugging line
+
         return json.table.rows.map(row => row.c.map(cell => (cell ? cell.v : "")));
     } catch (error) {
-        alert("Error fetching data: " + error.message);
+        // alert("Error fetching data: " + error.message);
+        console.error("Error fetching data:", error);
         return [];
     }
 }
 
 function normalizeArabic(text) {
+    
+    // alert("Normalizing text: " + text); // Debugging line
+    // console.log("Normalizing text:", text);
+
     return text
         .replace(/أ|إ|آ/g, "ا")
         .replace(/ة/g, "ه")
@@ -205,17 +113,24 @@ async function searchStudent(query, year) {
     
     if (!query) {
         resultElement.innerHTML = "<p>Please enter a name or seat number.</p>";
+        alert("Please enter a name or seat number.");
         return;
     }
 
     const data = await fetchExcelData(year);
+    
+    // alert(data);
+   
     if (data.length === 0) {
         resultElement.innerHTML = "<p>Error fetching data.</p>";
+        // alert("Error fetching data.");
         return;
     }
 
     let studentsFound = [];
     const normalizedQuery = normalizeArabic(query);
+   
+    // alert("Normalized query: " + normalizedQuery); // Debugging line
 
     for (let i = 1; i < data.length; i++) {
         const row = data[i];
@@ -223,6 +138,8 @@ async function searchStudent(query, year) {
 
         const fullName = row[3] ? normalizeArabic(row[3].toLowerCase()) : '';
         const seatNumber = row[2] ? row[2].toString().trim() : '';
+
+        // alert("Checking student: " + fullName + ", Seat: " + seatNumber); // Debugging line
 
         if (fullName.includes(normalizedQuery) || seatNumber.includes(query)) {
             studentsFound.push({
@@ -236,6 +153,7 @@ async function searchStudent(query, year) {
 
     if (studentsFound.length === 0) {
         resultElement.innerHTML = "<p>No student found.</p>";
+        alert("No student found.");
         return;
     }
 
@@ -265,13 +183,14 @@ function showStudentDetails(studentData) {
         studentInfo[i] = studentData[i] || 0; // Store scores safely
     }
 
+    // alert("Student Info: " + JSON.stringify(studentInfo)); // Debugging line
+
     resultElement.innerHTML = `
         <hr>
         <div><strong>Name:</strong> ${studentInfo.fullName}</div>
         <div><strong>Seat Number:</strong> ${studentInfo.seatNumber}</div>
         <div><strong>Rank:</strong> ${studentInfo.rank}</div>
         <hr>
-        <div id="mainTitle" style="text-align:center; font-size:24px; font-weight:bold; margin-bottom:10px;">Student Grades</div>
         <div id="gradesTable"></div>
         <div style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">
             <button onclick="prevModule()">←</button>
@@ -279,17 +198,25 @@ function showStudentDetails(studentData) {
             <button onclick="nextModule()">→</button>
         </div>
     `;
+    
+    // alert("Config Object: " + JSON.stringify(config)); // Debugging line
 
-    renderModule(); // Now `studentInfo` is set before calling this!
+renderModule();
+
 }
+
 
 
 function renderModule() {
-    const module = config[year].modules[currentModuleIndex];
+    const module = currentModules[currentModuleIndex];
+  
+    // alert(currentModules);
+    // alert(module);
+  
     document.getElementById("moduleTitle").innerText = module.title;
     document.getElementById("gradesTable").innerHTML = createTable(module);
-  
 }
+
 
 function createTable(module) {
     let tableHTML = `<table border="1">
@@ -328,11 +255,11 @@ function createTable(module) {
 }
 
 window.prevModule = () => {
-    currentModuleIndex = (currentModuleIndex - 1 + config[year].modules.length) % config[year].modules.length;
+    currentModuleIndex = (currentModuleIndex - 1 + currentModules.length) % currentModules.length;
     renderModule();
 };
 
 window.nextModule = () => {
-    currentModuleIndex = (currentModuleIndex + 1) % config[year].modules.length;
+    currentModuleIndex = (currentModuleIndex + 1) % currentModules.length;
     renderModule();
 };
