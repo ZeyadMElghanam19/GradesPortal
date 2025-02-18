@@ -179,29 +179,6 @@
           30,
           31
         ]
-      },
-      {
-        "title": "CVS Grades",
-        "subjects": [
-          "Spot Neuro",
-          "Practical Data Show",
-          "Total Practical"
-        ],
-        "maxScores": [
-          3,
-          40,
-          43
-        ],
-        "minScores": [
-          1.5,
-          20,
-          21.5
-        ],
-        "indexes": [
-          42,
-          43,
-          44
-        ]
       }
     ]
   },
