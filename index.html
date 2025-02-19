@@ -17,61 +17,12 @@
         
         <section class="Search&Admin">
             <button onclick="startSearch()">Search</button>
-            <button id="adminBtn" onclick="signInWithGoogle()">Admin?</button>
         </section>
     </div>
 
-    <!-- Firebase Scripts -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js"></script>
     <script src="script.js"></script>
 
     <script>
-        alert("Loading Firebase...");
-
-        // Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyAQCt7s3QIa1mFAFc63J2xL5gDybz12fck",
-            authDomain: "grades-portal.firebaseapp.com",
-            projectId: "grades-portal",
-            storageBucket: "grades-portal.firebasestorage.app",
-            messagingSenderId: "713427442265",
-            appId: "1:713427442265:web:da5b83c45d8000c4786f48",
-            measurementId: "G-32KM287GK3"
-        };
-
-        // Initialize Firebase
-        alert("Initializing Firebase...");
-        const app = firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-
-        alert("Firebase initialized!");
-
-        function signInWithGoogle() {
-            alert("Sign-in button clicked!");
-
-            const provider = new firebase.auth.GoogleAuthProvider();
-            auth.signInWithPopup(provider)
-                .then((result) => {
-                    const userEmail = result.user.email;
-                    alert("User signed in: " + userEmail);
-
-                    // Check if the signed-in user is an admin
-                    const allowedAdmins = ["admin@example.com", "teacher@example.com"]; // Replace with actual admin emails
-
-                    if (allowedAdmins.includes(userEmail)) {
-                        alert("Access granted! Redirecting to Admin Panel...");
-                        window.location.href = "admin.html";
-                    } else {
-                        alert("Access denied! You are not an admin.");
-                        auth.signOut(); // Log the user out if they are not an admin
-                    }
-                })
-                .catch((error) => {
-                    alert("Sign-in error: " + error.message);
-                });
-        }
-
         function startSearch() {
             const query = document.getElementById("searchInput").value.trim();
             const year = document.getElementById("yearSelect").value;  
