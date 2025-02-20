@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const token = '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'; //
+    const token = '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'; //
     const repoOwner = 'ZeyadMElghanam19'; // GitHub username
     const repoName = 'GradesPortal'; // Repository name
     const filePath = 'config.json'; // Config file path
